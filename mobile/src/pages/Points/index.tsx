@@ -41,7 +41,6 @@ const Points: React.FC<Props> = ({navigation, route}) => {
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0]);
-
   useEffect(()=>{
     api.get('/items').then(response=> setItems(response.data))
   }, [])
