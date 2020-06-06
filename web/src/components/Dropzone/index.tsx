@@ -32,15 +32,14 @@ const Dropzone: React.FC<Props> = ({onFileUploaded}) => {
       <input {...getInputProps()} accept='image/jpeg, image/pjpeg, image/png' />
       {selectedFileUrl 
         ? <img src={selectedFileUrl} alt="point thumbnail" />  
-        : isDragActive ?
-            <>
-              <p>Arraste sua imagem aqui.<FiUpload /></p>
-              
-              </> :
-            <>
-              <p><h2 style={{textAlign:"center"}}>Imagem do estabelecimento</h2>
-              <br/>Clique aqui ou arraste uma imagem para fazer upload (max: 2Mb)<FiUpload /></p>
-            </>
+        : isDragActive 
+            ? <div><h2>Solte sua imagem aqui!</h2><FiUpload /></div>
+            : <div>
+                <h2 style={{textAlign:"center"}}>Imagem do estabelecimento</h2>
+                <br/>
+                <p>Clique aqui ou arraste uma imagem para fazer upload (max: 2Mb)</p>
+                <FiUpload />
+              </div>
       }
     </div>
   )

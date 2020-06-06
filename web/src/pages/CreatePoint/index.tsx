@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import { LeafletMouseEvent } from 'leaflet';
 import { Link, useHistory } from 'react-router-dom';
@@ -42,6 +42,8 @@ const CreatePoint = () => {
 
   const [selectedUf, setSelectedUf] = useState('0')
   const [selectedCity, setSelectedCity] = useState('0');
+
+  const[finished, setFinished] = useState(false)
 
   const history = useHistory();
 
@@ -138,12 +140,19 @@ const CreatePoint = () => {
     }
 
     await api.post('points', data)
-    alert('Ponto de coleta criado!')
-    history.push('/')
+    setFinished(true)
+    setTimeout(() => {
+      history.push('/')
+    }, 2000);
   }
 
   return (
     <div id="page-create-point">
+        {
+          finished ? <div id="finished"><FiCheckCircle color="#34CB79" size={60}/> 
+          <h1>Cadastro concluído!</h1>
+         </div> : null
+        }
       <header>
         <img src={logo} alt="Ecoleta"/>
         <Link to="/">
@@ -162,6 +171,7 @@ const CreatePoint = () => {
           <div className="field">
             <label htmlFor="name">Nome da entidade</label>
             <input 
+              required
               type="text"
               name="name"
               id="name"
@@ -174,6 +184,7 @@ const CreatePoint = () => {
           <div className="field">
             <label htmlFor="email">Email</label>
             <input 
+              required
               type="email"
               name="email"
               id="email"
@@ -184,11 +195,11 @@ const CreatePoint = () => {
           <div className="field">
             <label htmlFor="whatsapp">Whatsapp</label>
             <input 
+              required
               type="text"
               name="whatsapp"
               id="whatsapp"
               value={formData.whatsapp}
-
               onChange={handleInputChange}
             />
           </div>
@@ -217,6 +228,7 @@ const CreatePoint = () => {
                 value={selectedUf} 
                 name="uf" 
                 id="uf"
+                required
               >
                 <option value="0">Selecione uma UF</option>
                 {ufs.map(uf=><option key={uf} value={uf}>{uf}</option>)}
@@ -225,6 +237,7 @@ const CreatePoint = () => {
             <div className="field">
               <label htmlFor="city">Cidade</label>
               <select 
+                required
                 onChange={handleSelectCity}
                 name="city" 
                 id="city"

@@ -16,7 +16,7 @@
   object-fit: cover;
 }
 
-.dropzone p {
+.dropzone div {
   width: calc(100% - 60px);
   height: calc(100% - 60px);
   border-radius: 10px;
@@ -28,7 +28,7 @@
   color: #333;
 }
 
-.dropzone p svg {
+.dropzone div svg {
   color: #4ECB79;
   width: 24px;
   height: 24px;
